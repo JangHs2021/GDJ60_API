@@ -11,5 +11,16 @@ public class StringStudy2 {
 		for(int i = 0; i < email.length(); i++) {
 			System.out.println(email.charAt(i));
 		}
+		
+		System.out.println("Before Email : " + email);
+		email = email.replaceAll("@", "_");
+		System.out.println("After Email : " + email);
+		
+		
+		String str = " a";
+		String str2 = "a";
+		String str3 = null; // error
+		System.out.println("STR : " + str.length());
+		System.out.println("STR : " + str2.length());
 	}
 }
