@@ -9,13 +9,19 @@ public class StringEx2 {
 		String [] names = {"jpg", "jpeg", "gif", "png"};
 		System.out.println("파일명을 입력");
 		String fileName = sc.next(); // asdad.jpg
-		String result = fileName.substring(fileName.indexOf(".") + 1);
+		String result = fileName.substring(fileName.lastIndexOf(".") + 1);
 //		System.out.println(result);
 		
+		boolean flag = true;
 		for(int i = 0; i < names.length; i++) {
-			if(result == names[i]) {
-				System.out.println(fileName);
+			if(result.equals(names[i])) {
+				System.out.println("정상 파일입니다");
+				flag = false;
+				break;
 			} 
+		}
+		if(flag) {
+			System.out.println("잘못된 파일입니다");
 		}
 	}
 }
