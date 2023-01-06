@@ -15,6 +15,5 @@ public class Ex3Main {
 		
 		weatherController.start();
 //		new WeatherController().start();
-		
 	}
 }
