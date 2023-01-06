@@ -1,8 +1,12 @@
 package com.iu.api1.strings;
 
+import java.util.Scanner;
+
 public class StringStudy3 {
 
 	public static void main(String[] args) {
+		Object object = new Object();
+		Scanner sc = new Scanner(System.in);
 		// String 불변
 		String str1 = "Hello";
 		String str2 = "Hello";
