@@ -19,9 +19,9 @@ public class WeatherData {
 		for(int i = 0; i < datas.length; i = i + 4) {
 			WeatherDTO dto = new WeatherDTO();
 			dto.setCity(datas[i]);
-			dto.setGion(datas[i + 1]);
+			dto.setGion(Integer.parseInt(datas[i + 1]));
 			dto.setStatus(datas[i + 2]);
-			dto.setMise(datas[i + 3]);
+			dto.setMise(Integer.parseInt(datas[i + 3]));
 			
 			weathers[idx] = dto;
 			idx++;

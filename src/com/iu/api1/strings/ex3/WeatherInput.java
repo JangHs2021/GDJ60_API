@@ -28,11 +28,11 @@ public class WeatherInput {
 		System.out.print("도시명 : ");
 		weatherDTO.setCity(sc.next());
 		System.out.print("기온 : ");
-		weatherDTO.setGion(sc.next());
+		weatherDTO.setGion(Integer.parseInt(sc.next()));
 		System.out.print("날씨 : ");
 		weatherDTO.setStatus(sc.next());
 		System.out.print("미세먼지 : ");
-		weatherDTO.setMise(sc.next());
+		weatherDTO.setMise(Integer.parseInt(sc.next()));
 		
 		WeatherDTO [] newWeatherDTOs = new WeatherDTO[weatherDTOs.length + 1]; 
 		for(int i = 0; i < weatherDTOs.length; i++) {
