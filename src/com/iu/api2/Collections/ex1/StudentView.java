@@ -10,7 +10,6 @@ public class StudentView {
 	}
 	
 	public void view(Student students) {
-		Student student = new Student();
 		System.out.println("Name : " + students.getName());
 		System.out.println("Number : " + students.getNumber());
 		System.out.println("Kor : " + students.getKor());

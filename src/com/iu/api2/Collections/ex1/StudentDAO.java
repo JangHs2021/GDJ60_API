@@ -72,11 +72,11 @@ public class StudentDAO {
 		System.out.print("수학 점수 : ");
 		student.setMath(Integer.parseInt(sc.next()));
 		
-//		int sum = student.getKor() + student.getEng() + student.getMath();
-//		student.setTotal(sum);
-//		
-//		double avg = student.getTotal() / 3.0;
-//		student.setAvg(avg);
+		int sum = student.getKor() + student.getEng() + student.getMath();
+		student.setTotal(sum);
+		
+		double avg = student.getTotal() / 3.0;
+		student.setAvg(avg);
 		
 		Student [] newStudent = new Student[students.length + 1];
 		for(int i = 0; i < students.length; i++) {
