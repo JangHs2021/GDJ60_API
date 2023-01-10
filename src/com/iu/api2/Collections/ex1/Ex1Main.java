@@ -1,5 +1,7 @@
 package com.iu.api2.Collections.ex1;
 
+import java.util.ArrayList;
+
 public class Ex1Main {
 
 	public static void main(String[] args) {
@@ -10,8 +12,29 @@ public class Ex1Main {
 		// 4. 학생정보추가
 		// 5. 학생정보삭제(이름)
 		// 6. 프로그램 종료
-		StudentDAO studentDAO = new StudentDAO();
+		StudentDAO dao = new StudentDAO();
+		ArrayList<StudentDTO> ar = dao.init();
 		
-		studentDAO.init();
+		
+		new StudentController().start();
+		
+		
+//		StudentDTO studentDTO = dao.findByName(ar);
+//		System.out.println(studentDTO.getName());
+//		System.out.println(studentDTO.getAvg());
+		
+//		for(int i =0; i < ar.size(); i++) {
+//			System.out.println(ar.get(i).getName());
+//		}
+		
+//		// 향상된 for
+//		for(StudentDTO studentDTO: ar) {
+//			
+//		}
+//	
+//		int [] nums = new int[3];
+//		for(int n: nums) {
+//			
+//		}
 	}
 }
