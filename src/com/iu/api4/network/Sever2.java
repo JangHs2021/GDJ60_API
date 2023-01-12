@@ -54,7 +54,6 @@ public class Sever2 {
 		
 		boolean check = true;
 
-		
 		try {
 			ss = new ServerSocket(8989);
 			System.out.println("Client 접속을 기다리는 중");
@@ -72,8 +71,9 @@ public class Sever2 {
 				
 				String msg = br.readLine();
 				
+				System.out.println(msg + "보내기"); // 두번 보내짐
+				
 				if(msg.equals("1")) {
-					System.out.println(msg + "보내기");
 					bw.write(menu + "\r\n");
 					bw.flush();
 				} else if(msg.equals("2")) {
