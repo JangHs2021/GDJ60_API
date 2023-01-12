@@ -1,9 +1,12 @@
 package com.iu.api2.Collections.ex1;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
@@ -22,24 +25,61 @@ public class StudentDAO {
 	
 	// 학생 정보 초기화
 	public ArrayList<StudentDTO> init() {
-		String data = this.sb.toString();
-		data = data.replace(" ", "-");
-		data = data.replace(",", "");
-		StringTokenizer st = new StringTokenizer(data, "-");
+//		String data = this.sb.toString();
+		
+		// 1. 파일객체
+//		Calendar calendar = Calendar.getInstance();
+
+		File file = new File("C:\\fileTest");
+		String [] names = file.list();
+		long max = 0;
+		
+		for(String name : names) {
+			name = name.substring(0, name.lastIndexOf("."));
+			long date = Long.parseLong(name);
+			if(date > max) {
+				max = date;
+			}
+		}
+		
+		file = new File("C:\\fileTest", max + ".txt");
+		
+//		File file = new File("C:\\fileTest", "1673483048475.txt");
+		// 2. 파일 내용 읽기 
+		FileReader fr = null;
+		BufferedReader br = null;
 		ArrayList<StudentDTO> ar = new ArrayList<>();
 		
-		while(st.hasMoreTokens()) {
-			StudentDTO studentDTO = new StudentDTO();
-			
-			studentDTO.setName(st.nextToken());
-			studentDTO.setNum(Integer.parseInt(st.nextToken()));
-			studentDTO.setKor(Integer.parseInt(st.nextToken()));
-			studentDTO.setEng(Integer.parseInt(st.nextToken()));
-			studentDTO.setMath(Integer.parseInt(st.nextToken()));
-			
-			studentDTO.setTotal(studentDTO.getKor() + studentDTO.getEng() + studentDTO.getMath());
-			studentDTO.setAvg(studentDTO.getTotal() / 3.0);
-			ar.add(studentDTO);
+		try {
+			fr = new FileReader(file);
+			br = new BufferedReader(fr);
+			String data = null;
+			while((data = br.readLine()) != null) {
+				data = data.replace(" ", "-");
+				data = data.replace(",", "");
+				StringTokenizer st = new StringTokenizer(data, "-");
+				StudentDTO studentDTO = new StudentDTO();
+					
+				studentDTO.setName(st.nextToken());
+				studentDTO.setNum(Integer.parseInt(st.nextToken()));
+				studentDTO.setKor(Integer.parseInt(st.nextToken()));
+				studentDTO.setEng(Integer.parseInt(st.nextToken()));
+				studentDTO.setMath(Integer.parseInt(st.nextToken()));
+					
+				studentDTO.setTotal(studentDTO.getKor() + studentDTO.getEng() + studentDTO.getMath());
+				studentDTO.setAvg(studentDTO.getTotal() / 3.0);
+				ar.add(studentDTO);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			try {
+				br.close();
+				fr.close();
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
 		}
 		return ar;
 	}
@@ -108,18 +148,41 @@ public class StudentDAO {
 	// 현재시간을 파일명으로 해서 파일작성 밀리세컨즈로 만들어서 백업
 	// name-번호-국어-영어-수학
 	public void backUp(ArrayList<StudentDTO> ar) {
-		File file = new File("C:\\fileTest", "Student.txt");
+		Calendar calendar = Calendar.getInstance();
+		FileWriter fw = null;
+		long time = calendar.getTimeInMillis();
+		File file = new File("C:\\fileTest", time + ".txt");
 		
 		try {
-			FileWriter fw = new FileWriter(file);
-			for(int i = 0; i < ar.size(); i++) {
-				fw.write(ar.get(i).getName() + ar.get(i).getNum()+ "\r\n");
-				
+			fw = new FileWriter(file);
+			for(StudentDTO studentDTO : ar) {
+				StringBuffer sb = new StringBuffer();
+				sb.append(studentDTO.getName());
+				sb.append("-");
+				sb.append(studentDTO.getNum());
+				sb.append("-");
+				sb.append(studentDTO.getKor());
+				sb.append("-");
+				sb.append(studentDTO.getEng());
+				sb.append("-");
+				sb.append(studentDTO.getMath());
+				sb.append("\r\n");
+//				fw.write(ar.get(i).getName() + "-" + ar.get(i).getNum()+ "-" + ar.get(i).getKor() + 
+//						"-" + ar.get(i).getEng() + "-" + ar.get(i).getMath() + "\r\n");
+				fw.write(sb.toString());
 				fw.flush();
 			}
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			try {
+				fw.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 }
