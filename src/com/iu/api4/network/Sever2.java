@@ -9,11 +9,18 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Random;
 
-public class Sever1 {
+public class Sever2 {
 
 	public static void main(String[] args) {
+		// Client 접속 대기
+		// 보내온 숫자
+		// 1. 점심메뉴중 하나를 랜덤하게 골라서 전송
+		// 2. 저녁메뉴중 하나를 랜덤하게 골라서 전송
+		// 3. 종료
 		ServerSocket ss = null;
 		Socket socket = null;
 		InputStream is = null;
@@ -23,11 +30,30 @@ public class Sever1 {
 		OutputStream os = null;
 		OutputStreamWriter ow = null;
 		BufferedWriter bw = null;
-		Scanner sc = new Scanner(System.in);
-		String msg = null;
 		
+		Random random = new Random();
+		
+		ArrayList<String> arr = new ArrayList<>();
+		
+		arr.add("피자");
+		arr.add("햄버거");
+		arr.add("라면");
+		
+		String menu = arr.get(random.nextInt(arr.size()));
+		
+		ArrayList<String> arr2 = new ArrayList<>();
+		
+		arr2.add("치킨");
+		arr2.add("짬뽕");
+		arr2.add("밥");
+		
+		String menu2 = arr2.get(random.nextInt(arr2.size()));
+		
+//		String [] lunch = {"피자", "햄버거", "라면"};
+//		String [] dinner = {"치킨", "짬뽕", "밥"};
 		
 		boolean check = true;
+
 		
 		try {
 			ss = new ServerSocket(8989);
@@ -35,8 +61,7 @@ public class Sever1 {
 			socket = ss.accept();
 			System.out.println("Client와 연결 성공");
 			
-			while(check) {
-				
+			while(true) {
 				is = socket.getInputStream();
 				ir = new InputStreamReader(is);
 				br = new BufferedReader(ir);
@@ -45,24 +70,19 @@ public class Sever1 {
 				ow = new OutputStreamWriter(os);
 				bw = new BufferedWriter(ow);
 				
-				msg = br.readLine();
+				String msg = br.readLine();
 				
-				if(msg.toLowerCase().equals("q")) {
-					check = false;
-				} 
-				
-				System.out.println("Client : " + msg);
-				
-				System.out.println("Client 보낼 메세지 입력");
-				msg = sc.next();
-				
-				bw.write(msg + "\r\n");
-				bw.flush();
-				
-				if(msg.toLowerCase().equals("q")) {
+				if(msg.equals("1")) {
+					System.out.println(msg + "보내기");
+					bw.write(menu + "\r\n");
+					bw.flush();
+				} else if(msg.equals("2")) {
+					bw.write(menu2 + "\r\n");
+					bw.flush();
+				} else {
 					check = false;
 				}
-			}	
+			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -81,8 +101,5 @@ public class Sever1 {
 				e.printStackTrace();
 			}
 		}
-			
-			
-		
 	}
 }
