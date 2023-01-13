@@ -18,6 +18,7 @@ public class ServerMain {
 	public static void main(String[] args) {
 		ServerSocket ss = null;
 		Socket socket = null;
+		
 		InputStream is = null;
 		InputStreamReader ir = null;
 		BufferedReader br = null;
@@ -25,57 +26,40 @@ public class ServerMain {
 		OutputStream os = null;
 		OutputStreamWriter ow = null;
 		BufferedWriter bw = null;
-		
-		File file = new File("C:\\fileTest");
-		String [] names = file.list();
-		long max = 0;
-		
-		for(String name : names) {
-			name = name.substring(0, name.lastIndexOf("."));
-			long date = Long.parseLong(name);
-			if(date > max) {
-				max = date;
-			}
-		}
-		
-		file = new File("C:\\fileTest", max + ".txt");
-		FileReader fr = null;
+		boolean check = true;
 		
 		try {
-			ss = new ServerSocket(8989);
+			ss = new ServerSocket(8181);
 			socket = ss.accept();
 			
-			boolean check = true;
-			String nameNum = null;
+			is = socket.getInputStream();
+			ir = new InputStreamReader(is);
+			br = new BufferedReader(ir);
 			
-			while(check) {
-				String data = br.readLine();
-				int num = Integer.parseInt(data);
-				
-				switch(num) {
-				case 1 :
-					fr = new FileReader(file);
-					br = new BufferedReader(fr);
-					bw.write(br.readLine());
-					break;
-				case 2 :
-					br.readLine();
-					
-					
-					break;
-				case 3 :
-					
-					break;
-				case 4 :
-					
-					break;
-				default :
-					check = false;
+			os = socket.getOutputStream();
+			ow = new OutputStreamWriter(os);
+			bw = new BufferedWriter(ow);
+			
+			File file = new File("C:\\fileTest");
+			String [] names = file.list();
+			long max = 0;
+			
+			for(String name : names) {
+				name = name.substring(0, name.lastIndexOf("."));
+				long date = Long.parseLong(name);
+				if(date > max) {
+					max = date;
 				}
-				
-				
-				
 			}
+			
+			file = new File("C:\\fileTest", max + ".txt");
+			FileReader fr = null;
+			
+			fr = new FileReader(file);
+			br = new BufferedReader(fr);
+			
+			bw.write(br.readLine());
+			bw.flush();
 			
 			
 		} catch (Exception e) {

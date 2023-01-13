@@ -31,9 +31,7 @@ public class ClientMain {
 		ArrayList<StudentDTO> ar = new ArrayList<>();
 
 		try {
-			socket = new Socket("192.168.1.126", 8989);
-			
-			boolean check = true;
+			socket = new Socket("192.168.1.126", 8181);
 			
 			os = socket.getOutputStream();
 			ow = new OutputStreamWriter(os);
@@ -42,6 +40,9 @@ public class ClientMain {
 			is = socket.getInputStream();
 			ir = new InputStreamReader(is);
 			br = new BufferedReader(ir);
+			
+			boolean check = true;
+			String data = null;
 			
 			while(check) {
 				System.out.println("1.전체학생정보");
@@ -52,26 +53,20 @@ public class ClientMain {
 				System.out.print("번호 입력 : ");
 				int select = sc.nextInt();
 				
-				switch(select) {
-				case 1 :
-					bw.write(select);
+//				bw.write(select + "\r\n");
+//				bw.flush();
+				if(select == 1) {
+					data = br.readLine();
 					studentView.view(ar);
-					break;
-				case 2 :
-					bw.write(select);
+				} else if(select == 2) {
 					studentDAO.findByName();
 					String result = br.readLine();
 					System.out.println("검색 결과 : " + result);
-					break;
-				case 3 :
-					bw.write(select);
+				} else if (select == 3) {
 					studentDAO.addStudent(ar);
-					break;
-				case 4 :
-					bw.write(select);
+				} else if (select == 4) {
 					studentDAO.removeStudent(ar);
-					break;
-				default :
+				} else {
 					check = false;
 				}
 			}

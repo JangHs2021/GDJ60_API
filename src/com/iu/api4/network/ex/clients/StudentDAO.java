@@ -57,8 +57,11 @@ public class StudentDAO {
 		ar.add(studentDTO);
 		
 		try {
-			bw.write(studentDTO + "\r\n");
-			bw.flush();
+			for(StudentDTO studentDTO2 : ar) {
+				bw.write(ar + "\r\n");
+				bw.flush();
+			}
+			
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
