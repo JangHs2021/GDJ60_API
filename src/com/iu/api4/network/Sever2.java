@@ -62,15 +62,16 @@ public class Sever2 {
 			socket = ss.accept();
 			System.out.println("Client와 연결 성공");
 			
+			is = socket.getInputStream();
+			ir = new InputStreamReader(is);
+			br = new BufferedReader(ir);
+			
+			os = socket.getOutputStream();
+			ow = new OutputStreamWriter(os);
+			bw = new BufferedWriter(ow);
+			
 			while(true) {
-				is = socket.getInputStream();
-				ir = new InputStreamReader(is);
-				br = new BufferedReader(ir);
-				
-				os = socket.getOutputStream();
-				ow = new OutputStreamWriter(os);
-				bw = new BufferedWriter(ow);
-				
+
 				int select = br.read();
 				
 				System.out.println(select + "보내기"); // 두번 보내짐 || 1, null값 출력
