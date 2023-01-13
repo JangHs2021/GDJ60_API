@@ -30,7 +30,7 @@ public class Sever2 {
 		OutputStream os = null;
 		OutputStreamWriter ow = null;
 		BufferedWriter bw = null;
-		String msg = null;
+		
 		
 		Random random = new Random();
 		
@@ -54,6 +54,7 @@ public class Sever2 {
 //		String [] dinner = {"치킨", "짬뽕", "밥"};
 		
 		boolean check = true;
+		
 
 		try {
 			ss = new ServerSocket(8989);
@@ -69,20 +70,34 @@ public class Sever2 {
 				os = socket.getOutputStream();
 				ow = new OutputStreamWriter(os);
 				bw = new BufferedWriter(ow);
-						
-				msg = br.readLine();
 				
-				System.out.println(msg + "보내기"); // 두번 보내짐 || 1, null값 출력
+				int select = br.read();
 				
-				if(msg.equals("1")) {
+				System.out.println(select + "보내기"); // 두번 보내짐 || 1, null값 출력
+				
+				switch(select) {
+				case 1 :
 					bw.write(menu + "\r\n");
 					bw.flush();
-				} else if(msg.equals("2")) {
+					break;
+				case 2 :
 					bw.write(menu2 + "\r\n");
 					bw.flush();
-				} else {
+					break;
+				default :
 					check = false;
 				}
+				
+				
+//				if(msg.equals("1")) {
+//					bw.write(menu + "\r\n");
+//					bw.flush();
+//				} else if(msg.equals("2")) {
+//					bw.write(menu2 + "\r\n");
+//					bw.flush();
+//				} else {
+//					check = false;
+//				}
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

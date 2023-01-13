@@ -29,14 +29,14 @@ public class Client2 {
 		InputStreamReader ir = null;
 		BufferedReader br = null;
 		
-		String msg = null;
+		String menu = null;
 		boolean check = true;
 		
 		while(check) {
 			try {
 				socket = new Socket("192.168.1.126", 8989);
 				System.out.println("1.점심  2.저녁  3.종료");
-				String select = sc.next();
+				int select = sc.nextInt();
 				
 				os = socket.getOutputStream();
 				ow = new OutputStreamWriter(os);
@@ -46,26 +46,50 @@ public class Client2 {
 				ir = new InputStreamReader(is);
 				br = new BufferedReader(ir);	
 				
-				if(select.equals("1")) {
+				switch(select) {
+				case 1 :
 					System.out.println("1번 선택");
 					bw.write(select + "\r\n");
 					bw.flush();
 					
-					msg = br.readLine();
-					System.out.println("점심메뉴 : " + msg);
-					
-				} else if(select.equals("2")) {
+					menu = br.readLine();
+					System.out.println("점심메뉴 : " + menu);
+					break;
+				case 2 :
 					System.out.println("2번 선택");
-					bw.write(select + "\r\n");
+					bw.write(select  + "\r\n");
 					bw.flush();
 					
-					msg = br.readLine();
-					System.out.println("저녁메뉴 : " + msg);
-					
-				} else {
+					menu = br.readLine();
+					System.out.println("저녁메뉴 : " + menu);
+					break;
+				default :
 					System.out.println("시스템 종료");
 					check = false;
 				}
+				
+				
+				
+//				if(select.equals("1")) {
+//					System.out.println("1번 선택");
+//					bw.write(select + "\r\n");
+//					bw.flush();
+//					
+//					msg = br.readLine();
+//					System.out.println("점심메뉴 : " + msg);
+//					
+//				} else if(select.equals("2")) {
+//					System.out.println("2번 선택");
+//					bw.write(select + "\r\n");
+//					bw.flush();
+//					
+//					msg = br.readLine();
+//					System.out.println("저녁메뉴 : " + msg);
+//					
+//				} else {
+//					System.out.println("시스템 종료");
+//					check = false;
+//				}
 				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
