@@ -47,7 +47,7 @@ public class Sever2 {
 		arr2.add("짬뽕");
 		arr2.add("밥");
 		
-		String menu2 = arr2.get(random.nextInt(arr2.size()));
+		String menu = arr2.get(random.nextInt(arr2.size()));
 		
 //		String [] lunch = {"피자", "햄버거", "라면"};
 //		String [] dinner = {"치킨", "짬뽕", "밥"};
@@ -78,7 +78,7 @@ public class Sever2 {
 					bw.flush();
 					break;
 				case 2 :
-					bw.write(menu2 + "\r\n");
+					bw.write(menu + "\r\n");
 					bw.flush();
 					break;
 				default :
