@@ -32,19 +32,21 @@ public class Client2 {
 		String menu = null;
 		boolean check = true;
 		
-		while(check) {
-			try {
-				socket = new Socket("192.168.1.126", 8989);
+		
+		try {
+			socket = new Socket("192.168.1.126", 8989);
+			
+			os = socket.getOutputStream();
+			ow = new OutputStreamWriter(os);
+			bw = new BufferedWriter(ow);
+				
+			is = socket.getInputStream();
+			ir = new InputStreamReader(is);
+			br = new BufferedReader(ir);
+				
+			while(check) {
 				System.out.println("1.점심  2.저녁  3.종료");
 				int select = sc.nextInt();
-				
-				os = socket.getOutputStream();
-				ow = new OutputStreamWriter(os);
-				bw = new BufferedWriter(ow);
-				
-				is = socket.getInputStream();
-				ir = new InputStreamReader(is);
-				br = new BufferedReader(ir);	
 				
 				switch(select) {
 				case 1 :
@@ -67,9 +69,7 @@ public class Client2 {
 					System.out.println("시스템 종료");
 					check = false;
 				}
-				
-				
-				
+			}
 //				if(select.equals("1")) {
 //					System.out.println("1번 선택");
 //					bw.write(select + "\r\n");
@@ -91,22 +91,21 @@ public class Client2 {
 //					check = false;
 //				}
 				
+		} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+		} finally {
+			try {
+				br.close();
+				ir.close();
+				is.close();
+				bw.close();
+				ow.close();
+				os.close();
+				socket.close();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} finally {
-				try {
-					br.close();
-					ir.close();
-					is.close();
-					bw.close();
-					ow.close();
-					os.close();
-					socket.close();
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 			}
 		}
 	}

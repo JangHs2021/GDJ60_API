@@ -31,7 +31,6 @@ public class Sever2 {
 		OutputStreamWriter ow = null;
 		BufferedWriter bw = null;
 		
-		
 		Random random = new Random();
 		
 		ArrayList<String> arr = new ArrayList<>();
@@ -55,7 +54,6 @@ public class Sever2 {
 		
 		boolean check = true;
 		
-
 		try {
 			ss = new ServerSocket(8989);
 			System.out.println("Client 접속을 기다리는 중");
@@ -71,10 +69,8 @@ public class Sever2 {
 			bw = new BufferedWriter(ow);
 			
 			while(true) {
-
-				int select = br.read();
-				
-				System.out.println(select + "보내기"); // 두번 보내짐 || 1, null값 출력
+				String data = br.readLine();
+				int select = Integer.parseInt(data);
 				
 				switch(select) {
 				case 1 :
@@ -88,7 +84,6 @@ public class Sever2 {
 				default :
 					check = false;
 				}
-				
 				
 //				if(msg.equals("1")) {
 //					bw.write(menu + "\r\n");
