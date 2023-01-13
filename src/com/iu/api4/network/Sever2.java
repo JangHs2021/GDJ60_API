@@ -30,6 +30,7 @@ public class Sever2 {
 		OutputStream os = null;
 		OutputStreamWriter ow = null;
 		BufferedWriter bw = null;
+		String msg = null;
 		
 		Random random = new Random();
 		
@@ -68,10 +69,10 @@ public class Sever2 {
 				os = socket.getOutputStream();
 				ow = new OutputStreamWriter(os);
 				bw = new BufferedWriter(ow);
+						
+				msg = br.readLine();
 				
-				String msg = br.readLine();
-				
-				System.out.println(msg + "보내기"); // 두번 보내짐
+				System.out.println(msg + "보내기"); // 두번 보내짐 || 1, null값 출력
 				
 				if(msg.equals("1")) {
 					bw.write(menu + "\r\n");
