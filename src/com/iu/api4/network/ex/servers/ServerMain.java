@@ -42,7 +42,9 @@ public class ServerMain {
 		FileReader fr = null;
 		
 		try {
-			ss = new ServerSocket(8181);
+			ss = new ServerSocket(8989);
+			socket = ss.accept();
+			
 			boolean check = true;
 			String nameNum = null;
 			
