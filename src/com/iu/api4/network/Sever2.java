@@ -22,13 +22,43 @@ public class Sever2 {
 		// 1. 점심메뉴중 하나를 랜덤하게 골라서 전송
 		// 2. 저녁메뉴중 하나를 랜덤하게 골라서 전송
 		// 3. 종료
-		Calendar ca = Calendar.getInstance();
-		Random random = new Random(ca.getTimeInMillis());
-		String [] lunch = {"라면", "햄버거", "짬뽕", "짜장면"};
-		int idx = random.nextInt(5);
+		String [] lunch = {"라면", "햄버거", "짬뽕", "짜장면", "굶기"};
+		String [] dinner = {"삼겹살", "김밥", "순두부", "갈비", "바나나"};
 		
-		String menu = lunch[idx];
+		ServerSocket ss = null;
 		
 		
+		try {
+			ss = new ServerSocket(8282);
+			Socket socket = ss.accept();
+			
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		String menu = null;
+		boolean check = true;
+		
+		while(check) {
+			Calendar ca = Calendar.getInstance();
+			Random random = new Random(ca.getTimeInMillis());
+			int select = 1;
+			
+			switch(select) {
+			case 1 :
+				select = random.nextInt(100) % 5;
+				menu = lunch[select];
+				break;
+			case 2 :
+				select = random.nextInt(100) % 5;
+				menu = dinner[select];
+				break;
+			default:
+				System.out.println("서버 프로그램 종료");
+				check = false;
+			}
+		}
 	}
 }
