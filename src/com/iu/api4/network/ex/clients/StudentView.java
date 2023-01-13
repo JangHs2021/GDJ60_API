@@ -21,9 +21,9 @@ public class StudentView {
 	OutputStream os = null;
 	OutputStreamWriter ow = null;
 	BufferedWriter bw = null;
-	ArrayList<String> ar = new ArrayList<>();
+	ArrayList<StudentDTO> ar = new ArrayList<>();
 	
-	public ArrayList<String> pacing(String data) {
+	public ArrayList<StudentDTO> pacing(String data) {
 		try {
 			is = socket.getInputStream();
 			ir = new InputStreamReader(is);
@@ -33,11 +33,10 @@ public class StudentView {
 			ow = new OutputStreamWriter(os);
 			bw = new BufferedWriter(ow);
 			
-			String student = br.readLine();
-			StringTokenizer st = new StringTokenizer(student, "-");
+			StringTokenizer st = new StringTokenizer(data, "-");
 			ArrayList<StudentDTO> ar = new ArrayList<>();
 			
-			while((student = br.readLine()) != null) {
+			while((data = br.readLine()) != null) {
 				StudentDTO studentDTO = new StudentDTO();
 				studentDTO.setName(st.nextToken());
 				studentDTO.setNum(Integer.parseInt(st.nextToken()));

@@ -11,6 +11,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class ClientMain {
 
@@ -28,10 +29,10 @@ public class ClientMain {
 		
 		StudentView studentView = new StudentView();
 		StudentDAO studentDAO = new StudentDAO();
-		ArrayList<StudentDTO> ar = new ArrayList<>();
+		
 
 		try {
-			socket = new Socket("192.168.1.126", 8181);
+			socket = new Socket("192.168.1.126", 8888);
 			
 			os = socket.getOutputStream();
 			ow = new OutputStreamWriter(os);
@@ -42,7 +43,6 @@ public class ClientMain {
 			br = new BufferedReader(ir);
 			
 			boolean check = true;
-			String data = null;
 			
 			while(check) {
 				System.out.println("1.전체학생정보");
@@ -53,24 +53,38 @@ public class ClientMain {
 				System.out.print("번호 입력 : ");
 				int select = sc.nextInt();
 				
-//				bw.write(select + "\r\n");
-//				bw.flush();
 				if(select == 1) {
-					data = br.readLine();
-					studentView.view(ar);
-				} else if(select == 2) {
-					studentDAO.findByName();
-					String result = br.readLine();
-					System.out.println("검색 결과 : " + result);
-				} else if (select == 3) {
-					studentDAO.addStudent(ar);
-				} else if (select == 4) {
-					studentDAO.removeStudent(ar);
-				} else {
-					check = false;
+					bw.write(select + "\r\n");
+					bw.flush();
+					
+					String data = br.readLine();
+					data = data.replace(" ", "");
+					data = data.replace(",", "-");
+					
+					StringTokenizer st = new StringTokenizer(data, "-");
+					ArrayList<StudentDTO> ar = new ArrayList<>();
+					StudentDTO studentDTO = new StudentDTO();
+					
+					while((data = br.readLine()) != null) {
+						studentDTO.setName(st.nextToken());
+						studentDTO.setNum(Integer.parseInt(st.nextToken()));
+						studentDTO.setKor(Integer.parseInt(st.nextToken()));
+						studentDTO.setEng(Integer.parseInt(st.nextToken()));
+						studentDTO.setMath(Integer.parseInt(st.nextToken()));
+							
+						studentDTO.setTotal(studentDTO.getKor() + studentDTO.getEng() + studentDTO.getMath());
+						studentDTO.setAvg(studentDTO.getTotal() / 3.0);
+						ar.add(studentDTO);
+						
+						System.out.println(ar.get(0).getName());
+						
+					}
+					
+//					for(int i = 0; i < ar.size(); i++){
+//						studentView.view(studentDTO);
+//					}
 				}
 			}
-			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

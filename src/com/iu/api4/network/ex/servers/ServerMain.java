@@ -13,6 +13,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import com.iu.api4.network.ex.clients.StudentDTO;
+
 public class ServerMain {
 
 	public static void main(String[] args) {
@@ -22,14 +24,18 @@ public class ServerMain {
 		InputStream is = null;
 		InputStreamReader ir = null;
 		BufferedReader br = null;
+		BufferedReader br2 = null;
 		
 		OutputStream os = null;
 		OutputStreamWriter ow = null;
 		BufferedWriter bw = null;
+		
+		FileReader fr = null;
+		
 		boolean check = true;
 		
 		try {
-			ss = new ServerSocket(8181);
+			ss = new ServerSocket(8888);
 			socket = ss.accept();
 			
 			is = socket.getInputStream();
@@ -51,16 +57,28 @@ public class ServerMain {
 					max = date;
 				}
 			}
-			
 			file = new File("C:\\fileTest", max + ".txt");
-			FileReader fr = null;
-			
 			fr = new FileReader(file);
-			br = new BufferedReader(fr);
+			br2 = new BufferedReader(fr);
 			
-			bw.write(br.readLine());
-			bw.flush();
+			ArrayList<String> ar = new ArrayList<>();
+			ar.add(br2.readLine());
+			ar.add(br2.readLine());
+			ar.add(br2.readLine());
 			
+			while(check) {
+				String data = br.readLine();
+				int select = Integer.parseInt(data);
+				
+				switch(select) {
+				case 1:
+					for(int i = 0; i < ar.size(); i++) {
+						bw.write(ar + "\r\n");
+						bw.flush();
+					}
+					break;
+				}
+			}
 			
 		} catch (Exception e) {
 	
