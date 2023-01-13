@@ -27,10 +27,27 @@ public class Sever2 {
 		
 		ServerSocket ss = null;
 		
+		InputStream is = null;
+		InputStreamReader ir = null;
+		BufferedReader br = null;
+		
+		OutputStream os = null;
+		OutputStreamWriter ow = null;
+		BufferedWriter bw = null;
+		
 		
 		try {
 			ss = new ServerSocket(8282);
 			Socket socket = ss.accept();
+			
+			is = socket.getInputStream();
+			ir = new InputStreamReader(is);
+			br = new BufferedReader(ir);
+			
+			os = socket.getOutputStream();
+			ow = new OutputStreamWriter(os);
+			bw = new BufferedWriter(ow);
+			
 			
 			
 		} catch (Exception e) {
