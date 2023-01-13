@@ -31,7 +31,7 @@ public class Client2 {
 		BufferedReader br = null;
 		
 		try {
-			socket = new Socket("192.168.1.126", 8989);
+			socket = new Socket("192.168.1.126", 9595);
 			
 			is = socket.getInputStream();
 			ir = new InputStreamReader(is);

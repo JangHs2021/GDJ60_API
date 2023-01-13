@@ -37,7 +37,7 @@ public class Sever2 {
 		
 		
 		try {
-			ss = new ServerSocket(8989);
+			ss = new ServerSocket(9595);
 			socket = ss.accept();
 			
 			is = socket.getInputStream();
