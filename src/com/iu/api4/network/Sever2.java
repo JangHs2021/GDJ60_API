@@ -26,7 +26,7 @@ public class Sever2 {
 		String [] dinner = {"삼겹살", "김밥", "순두부", "갈비", "바나나"};
 		
 		ServerSocket ss = null;
-		
+		Socket socket = null;
 		InputStream is = null;
 		InputStreamReader ir = null;
 		BufferedReader br = null;
@@ -37,8 +37,8 @@ public class Sever2 {
 		
 		
 		try {
-			ss = new ServerSocket(8282);
-			Socket socket = ss.accept();
+			ss = new ServerSocket(8989);
+			socket = ss.accept();
 			
 			is = socket.getInputStream();
 			ir = new InputStreamReader(is);
@@ -58,7 +58,6 @@ public class Sever2 {
 				Calendar ca = Calendar.getInstance();
 				Random random = new Random(ca.getTimeInMillis());
 				
-				
 				switch(select) {
 				case 1 :
 					select = random.nextInt(100) % 5;
@@ -71,6 +70,10 @@ public class Sever2 {
 				default:
 					System.out.println("서버 프로그램 종료");
 					check = false;
+				}
+				if(check) {
+					bw.write(menu + "\r\n");
+					bw.flush();
 				}
 			}
 		} catch (Exception e) {

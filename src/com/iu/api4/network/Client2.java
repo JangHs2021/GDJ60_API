@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.Scanner;
 
 public class Client2 {
@@ -29,61 +30,34 @@ public class Client2 {
 		InputStreamReader ir = null;
 		BufferedReader br = null;
 		
-		String msg = null;
-		boolean check = true;
-		
-		while(check) {
-			try {
-				socket = new Socket("192.168.1.126", 8989);
-				System.out.println("1.점심  2.저녁  3.종료");
-				String select = sc.next();
+		try {
+			socket = new Socket("192.168.1.126", 8989);
+			
+			is = socket.getInputStream();
+			ir = new InputStreamReader(is);
+			br = new BufferedReader(ir);
+			
+			os = socket.getOutputStream();
+			ow = new OutputStreamWriter(os);
+			bw = new BufferedWriter(ow);
+			
+			while(true) {
+				System.out.println("1.점심 2.저녁 3.종료");
+				int select = sc.nextInt();
 				
-				os = socket.getOutputStream();
-				ow = new OutputStreamWriter(os);
-				bw = new BufferedWriter(ow);
+				bw.write(select + "\r\n");
+				bw.flush();
 				
-				is = socket.getInputStream();
-				ir = new InputStreamReader(is);
-				br = new BufferedReader(ir);	
-				
-				if(select.equals("1")) {
-					System.out.println("1번 선택");
-					bw.write(select + "\r\n");
-					bw.flush();
-					
-					msg = br.readLine();
-					System.out.println("점심메뉴 : " + msg);
-					
-				} else if(select.equals("2")) {
-					System.out.println("2번 선택");
-					bw.write(select + "\r\n");
-					bw.flush();
-					
-					msg = br.readLine();
-					System.out.println("저녁메뉴 : " + msg);
-					
-				} else {
-					System.out.println("시스템 종료");
-					check = false;
+				if(select == 3) {
+					System.out.println("프로그램 종료");
+					break;
 				}
-				
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-				try {
-					br.close();
-					ir.close();
-					is.close();
-					bw.close();
-					ow.close();
-					os.close();
-					socket.close();
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				String menu = br.readLine();
+				System.out.println("Menu : " + menu);
 			}
-		}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
 	}
 }
