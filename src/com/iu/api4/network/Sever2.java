@@ -48,34 +48,34 @@ public class Sever2 {
 			ow = new OutputStreamWriter(os);
 			bw = new BufferedWriter(ow);
 			
+			String menu = null;
+			boolean check = true;
 			
-			
+			while(check) {
+				String data = br.readLine();
+				int select = Integer.parseInt(data);
+				
+				Calendar ca = Calendar.getInstance();
+				Random random = new Random(ca.getTimeInMillis());
+				
+				
+				switch(select) {
+				case 1 :
+					select = random.nextInt(100) % 5;
+					menu = lunch[select];
+					break;
+				case 2 :
+					select = random.nextInt(100) % 5;
+					menu = dinner[select];
+					break;
+				default:
+					System.out.println("서버 프로그램 종료");
+					check = false;
+				}
+			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
-		String menu = null;
-		boolean check = true;
-		
-		while(check) {
-			Calendar ca = Calendar.getInstance();
-			Random random = new Random(ca.getTimeInMillis());
-			int select = 1;
-			
-			switch(select) {
-			case 1 :
-				select = random.nextInt(100) % 5;
-				menu = lunch[select];
-				break;
-			case 2 :
-				select = random.nextInt(100) % 5;
-				menu = dinner[select];
-				break;
-			default:
-				System.out.println("서버 프로그램 종료");
-				check = false;
-			}
 		}
 	}
 }
